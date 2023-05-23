@@ -1,9 +1,10 @@
 import { Schema, model, models } from "mongoose";
 
-type TUser = {
+export type TUser = {
   email: string;
   name: string;
   password: string;
+  role: string;
 };
 
 const userSchema = new Schema<TUser>(
@@ -17,6 +18,10 @@ const userSchema = new Schema<TUser>(
       trim: true,
     },
     password: {
+      type: String,
+      trim: true,
+    },
+    role: {
       type: String,
       trim: true,
     },
