@@ -32,7 +32,7 @@ export default async function indexUser(
 
         const userSaved = await newUser.save();
 
-        return res.status(200).json(userSaved);
+        return res.status(200).json(userSaved   );
       } catch (error) {
         if (error instanceof Error) {
           res.status(500).json({ error: error.message });
