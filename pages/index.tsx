@@ -1,5 +1,19 @@
-import React from "react";
+import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 export default function index() {
-  return <div>index</div>;
+  const { data: session, status } = useSession();
+  console.log(session);
+
+  return (
+    <div>
+      {session ? (
+        <button onClick={() => signOut()}>Sign out</button>
+      ) : (
+        <Link className="btn btn-outline" href="/auth/SignIn">
+          Sign In
+        </Link>
+      )}
+    </div>
+  );
 }

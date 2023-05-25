@@ -5,3 +5,52 @@
 :root {
   font-family: "Inter", sans-serif;
 }
+
+h3 {
+  @apply font-medium;
+  font-size: 22px;
+}
+
+label {
+  @apply font-light;
+  font-size: 16px;
+}
+
+p {
+  @apply font-normal;
+  font-size: 16px;
+  color: #525252;
+}
+
+input[type="text"] {
+  @apply rounded-lg font-light pl-2 py-1 text-black placeholder:text-[#999999];
+  width: 300px;
+  font-size: 16px;
+  border-width: 1px;
+  border-radius: 6px;
+}
+
+input[type="text"]:focus {
+  @apply shadow-lg shadow-blue-100 border-blue-400;
+  color: black;
+  outline: none;
+}
+input[type="password"] {
+  @apply rounded-lg font-light pl-2 py-1 text-black placeholder:text-[#999999];
+  width: 300px;
+  font-size: 16px;
+  border-width: 1px;
+  border-radius: 6px;
+}
+
+input[type="password"]:focus {
+  @apply shadow-lg shadow-blue-100 border-blue-400;
+  color: black;
+  outline: none;
+}
+
+button[type="submit"] {
+  @apply bg-blue-600 text-white py-3;
+  width: 300px;
+  border-radius: 6px;
+}
