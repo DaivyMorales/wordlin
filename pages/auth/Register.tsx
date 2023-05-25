@@ -1,9 +1,8 @@
-import { signIn } from "next-auth/react";
 import { HiKey } from "react-icons/hi";
 import Link from "next/link";
 import { useFormik } from "formik";
-import { useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function Signin() {
   const router = useRouter();
@@ -16,6 +15,11 @@ export default function Signin() {
     },
     onSubmit: async (values) => {
       console.log(values);
+      const response = await axios.post(
+        "http://localhost:3000/api/user",
+        values
+      );
+      console.log(response);
     },
   });
 
