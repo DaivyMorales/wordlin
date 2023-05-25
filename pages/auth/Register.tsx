@@ -3,9 +3,15 @@ import Link from "next/link";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function Signin() {
+  const [error, setError] = useState("");
+
   const router = useRouter();
+
+  const callbackUrl = decodeURI((router.query?.callbackUrl as string) ?? "/");
 
   const formik = useFormik({
     initialValues: {
@@ -13,13 +19,27 @@ export default function Signin() {
       name: String,
       password: String,
     },
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       console.log(values);
+      resetForm();
       const response = await axios.post(
         "http://localhost:3000/api/user",
         values
       );
       console.log(response);
+
+      const result = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        callbackUrl: callbackUrl ?? "/",
+        redirect: false,
+      });
+      if (result?.error) {
+        setError(result.error);
+      }
+      if (result?.ok) {
+        router.push(callbackUrl);
+      }
     },
   });
 
