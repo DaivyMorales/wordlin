@@ -56,27 +56,3 @@ export default async function indexUser(
       break;
   }
 }
-
-/*
-{
-    "name": "Infinitive Words",
-    "cards":  [
-        {
-            _id: "6470a74ab7330683f3c1a895",
-            wordOne: "Write",
-            wordTwo: "Escribir"
-        },
-        {
-            _id: "6470a742b7330683f3c1a893",
-            wordOne: "Send",
-            wordTwo: "Enviar"
-        },
-        {
-            _id: "6470a73cb7330683f3c1a891",
-            wordOne: "Run",
-            wordTwo: "Correr"
-        }
-    ]
-}
-
-*/
