@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "../../../utils/db";
 import Collection from "../../../models/collection.model";
+import Card from "../../../models/collection.model";
 import mongoose from "mongoose";
 
 interface TCollection extends Document {
@@ -19,7 +20,9 @@ export default async function indexUser(
   switch (method) {
     case "GET":
       try {
-        const collections = await Collection.find().populate("cards");
+        const collections = await Collection.find();
+
+        
         return res.status(200).json(collections);
       } catch (error) {
         if (error instanceof Error) {
@@ -34,14 +37,14 @@ export default async function indexUser(
       try {
         const {
           name,
-          cards,
-          user,
-        }: { name: string; cards: string[]; user: string } = body;
+          Card,
+          User,
+        }: { name: string; Card: string[]; User: string } = body;
 
         const newCollection = new Collection({
           name,
-          cards: cards.map((cardId) => new mongoose.Types.ObjectId(cardId)),
-          user,
+          Card: Card.map((cardId) => new mongoose.Types.ObjectId(cardId)),
+          User,
         });
 
         const collectionSaved: TCollection = await newCollection.save();
@@ -61,3 +64,5 @@ export default async function indexUser(
       break;
   }
 }
+
+

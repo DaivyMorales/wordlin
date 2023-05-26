@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 
 export type TUser = {
   email: string;

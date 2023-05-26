@@ -1,8 +1,8 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 export type TCard = {
-  wordOne: String;
-  wordTwo: String;
+  wordOne: string;
+  wordTwo: string;
 };
 
 const cardSchema = new Schema<TCard>(
@@ -22,4 +22,6 @@ const cardSchema = new Schema<TCard>(
   }
 );
 
-export default models.Card || model<TCard>("Card", cardSchema);
+const Card = mongoose.models.Card || model<TCard>("Card", cardSchema);
+
+export default Card;

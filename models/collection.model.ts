@@ -1,11 +1,12 @@
-import { Schema, Types, model, models } from "mongoose";
+import mongoose from "mongoose";
+import { Schema, Types, model, models} from "mongoose";
 import Card from "./card.model";
 import User from "./user.model";
 
 export type TCollection = {
   name: String;
-  cards: String[];
-  user: Types.ObjectId;
+  Card: Types.ObjectId[];
+  User: Types.ObjectId;
 };
 
 const collectionSchema = new Schema<TCollection>(
@@ -15,14 +16,14 @@ const collectionSchema = new Schema<TCollection>(
       type: String,
       trim: true,
     },
-    cards: [
+    Card: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Card",
       },
     ],
-    user: {
-      type: Schema.Types.ObjectId,
+    User: {
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       // required: true,
     },
