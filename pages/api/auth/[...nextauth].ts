@@ -5,6 +5,7 @@ import { userService } from "@/service/UserService";
 declare module "next-auth" {
   interface Session {
     user: {
+      _id?: string | null;
       name?: string | null;
       email?: string | null;
       image?: string | null;
@@ -16,6 +17,7 @@ declare module "next-auth" {
 declare module "next-auth" {
   interface User {
     role: string;
+    _id: string;
   }
 }
 
@@ -48,6 +50,7 @@ export default NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role;
+        token._id = user._id;
       }
 
       return token;
@@ -56,12 +59,13 @@ export default NextAuth({
     session({ session, token }) {
       if (token && session.user) {
         session.user.role = token.role as string;
+        session.user._id = token._id as string;
       }
       return session;
     },
   },
 
-  // pages: {
-  //   signIn: "/auth/SignIn",
-  // },
+  pages: {
+    signIn: "/auth/SignIn",
+  },
 });

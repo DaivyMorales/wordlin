@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
+import { signOut, useSession, getCsrfToken } from "next-auth/react";
 
 export default function index() {
   const { data: session, status } = useSession();
