@@ -11,7 +11,13 @@ export default function index() {
   return (
     <div>
       {session ? (
+        <>
         <button onClick={() => signOut()}>Sign out</button>
+        <br />
+        <Link className="btn btn-outline" href="/collections">
+          My Collections
+        </Link>
+        </>
       ) : (
         <Link className="btn btn-outline" href="/auth/SignIn">
           Sign In

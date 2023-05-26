@@ -23,7 +23,7 @@ export const cardContext = createContext<IContext>({
 
 export const CardContextProvider = ({ children }: MyProps) => {
   const [cards, setCards] = useState<ICard[]>([]);
-  console.log(cards);
+  // console.log(cards);
 
   const getCards = async () => {
     const response = await axios.get("/api/card");
