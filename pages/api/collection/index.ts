@@ -32,11 +32,16 @@ export default async function indexUser(
 
     case "POST":
       try {
-        const { name, cards }: { name: string; cards: string[] } = body;
+        const {
+          name,
+          cards,
+          user,
+        }: { name: string; cards: string[]; user: string } = body;
 
         const newCollection = new Collection({
           name,
           cards: cards.map((cardId) => new mongoose.Types.ObjectId(cardId)),
+          user,
         });
 
         const collectionSaved: TCollection = await newCollection.save();

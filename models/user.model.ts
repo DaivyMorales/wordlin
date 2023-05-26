@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Schema, model, models } from "mongoose";
 
 export type TUser = {
@@ -33,4 +34,5 @@ const userSchema = new Schema<TUser>(
   }
 );
 
-export default models.UserSchema || model<TUser>("UserSchema", userSchema);
+export default mongoose.models.User ||
+  mongoose.model<TUser>("User", userSchema);
