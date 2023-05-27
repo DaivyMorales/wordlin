@@ -6,7 +6,7 @@ interface MyProps {
   children: ReactNode;
 }
 
-interface ICollection {
+export interface ICollection {
   _id: string;
   name: string;
   Card: string[];
@@ -18,22 +18,23 @@ interface ICollection {
 interface IContext {
   // getCollections: () => Promise<void>;
   collections: ICollection[];
-
   setCollections: React.Dispatch<React.SetStateAction<ICollection[]>>;
+  collectionChoose: string;
+  setCollectionChoose: React.Dispatch<React.SetStateAction<string>>;
 }
 export const collectionContext = createContext<IContext>({
-  // getCollections: async () => {},
   collections: [],
   setCollections: () => [],
+  collectionChoose: "",
+  setCollectionChoose: () => {},
 });
 
 export const CollectionContextProvider = ({ children }: MyProps) => {
   const [userId, setUserId] = useState<string | null | undefined>("");
   const [collections, setCollections] = useState<ICollection[]>([]);
-  // console.log("collections:", collections);
+  const [collectionChoose, setCollectionChoose] = useState<string>("");
 
   const { data: session, status } = useSession();
-  console.log(session);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -57,7 +58,14 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
   }, [status]);
 
   return (
-    <collectionContext.Provider value={{ collections, setCollections }}>
+    <collectionContext.Provider
+      value={{
+        collections,
+        setCollections,
+        collectionChoose,
+        setCollectionChoose,
+      }}
+    >
       {children}
     </collectionContext.Provider>
   );

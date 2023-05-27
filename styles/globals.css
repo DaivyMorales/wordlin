@@ -6,9 +6,24 @@
   font-family: "Inter", sans-serif;
 }
 
+h1 {
+  @apply font-bold;
+  font-size: 43px;
+}
+
 h3 {
   @apply font-medium;
   font-size: 22px;
+}
+
+h4 {
+  @apply font-medium;
+  font-size: 18px;
+}
+
+h5 {
+  @apply font-medium;
+  font-size: 14px;
 }
 
 label {
@@ -53,4 +68,13 @@ button[type="submit"] {
   @apply bg-blue-600 text-white py-3;
   width: 300px;
   border-radius: 6px;
+}
+
+.border-1 {
+  border-width: 1px;
+}
+
+.straight-line {
+  border-left: 1px solid black;
+  height: 100%;
 }
