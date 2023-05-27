@@ -3,13 +3,14 @@ import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
 import BoxCollection from "../../components/collection/BoxCollection";
 import { BiPlusCircle, BiHdd } from "react-icons/bi";
+import AddCard from "@/components/card/AddCard";
 
 export default function Collections() {
-  const { getCards } = useContext(cardContext);
+  const { getCards, showCardForm, setShowCardForm } = useContext(cardContext);
   const { collections } = useContext(collectionContext);
 
   return (
-    <div className="w-screen h-screen flex gap-4 justify-center items-center flex-col">
+    <div className="relative z-10 w-screen h-screen flex gap-4 justify-center items-center flex-col">
       <div className="rounded-full flex justify-center items-center gap-x-2 border-1 px-5 bg-emerald-100 border-emerald-500">
         <BiHdd className="text-emerald-500" size={22} />
         <h3 className="font-semibold text-emerald-600 ">Collections</h3>
@@ -26,6 +27,7 @@ export default function Collections() {
           <BoxCollection collection={collection} />
         ))}
       </div>
+      {showCardForm ? <AddCard /> : ""}
     </div>
   );
 }

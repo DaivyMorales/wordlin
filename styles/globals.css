@@ -82,5 +82,19 @@ button[type="submit"] {
 hr {
   @apply w-48 mx-auto bg-gray-300 border-0 rounded;
   height: 2px;
-  width:  242px;
+  width: 242px;
 }
+
+
+
+
+.add {
+  position: absolute;
+  /* top: 50px;
+  left: 50px; */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);/* Color de fondo del div de primer plano */
+  @apply flex justify-center items-center;
+}
+

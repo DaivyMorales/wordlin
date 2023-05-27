@@ -1,3 +1,4 @@
+import { cardContext } from "@/contexts/card.ctx";
 import { ICollection, collectionContext } from "@/contexts/collection.ctx";
 import { useContext } from "react";
 import { BiCollection, BiFontColor, BiDuplicate } from "react-icons/bi";
@@ -7,14 +8,16 @@ interface MyProps {
 }
 
 export default function BoxCollection({ collection }: MyProps) {
-  const { setCollectionChoose } = useContext(collectionContext);
+  const { setCollectionChoose, setCollectionInfo } =
+    useContext(collectionContext);
+  const { showCardForm, setShowCardForm } = useContext(cardContext);
 
   return (
-    <div className="border-gray-300 p-3 border-1 rounded-lg">
+    <div className="border-gray-300 p-3 border-1 rounded-lg shadow-md">
       <div
         onClick={() => setCollectionChoose(collection._id)}
         key={collection._id}
-        className="flex justify-start flex-col w-72 items-start gap-y-2"
+        className="flex justify-start flex-col w-72  items-start gap-y-2"
       >
         <div className="flex justify-between items-center w-full gap-x-2">
           <div className="flex gap-x-2 justify-center items-center">
@@ -29,7 +32,20 @@ export default function BoxCollection({ collection }: MyProps) {
           </div>
         </div>
         <hr />
-        <button className="flex gap-x-1 justify-center items-center text-xs border-1 text-black px-3 shadow-sm py-1 rounded-md">
+        <button
+          onClick={() => {
+            setShowCardForm(collection._id);
+            setCollectionInfo({
+              _id: collection._id,
+              name: collection.name,
+              Card: collection.Card,
+              User: collection.User,
+              updatedAt: collection.updatedAt,
+              createdAt: collection.createdAt,
+            });
+          }}
+          className="flex gap-x-1 justify-center items-center text-xs border-1 text-black px-3 shadow-sm py-1 rounded-md"
+        >
           <BiDuplicate />
           Add
         </button>
