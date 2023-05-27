@@ -1,6 +1,6 @@
 import { ICollection, collectionContext } from "@/contexts/collection.ctx";
 import { useContext } from "react";
-import { BiCollection } from "react-icons/bi";
+import { BiCollection, BiFontColor } from "react-icons/bi";
 
 interface MyProps {
   collection: ICollection;
@@ -14,18 +14,26 @@ export default function BoxCollection({ collection }: MyProps) {
       <div
         onClick={() => setCollectionChoose(collection._id)}
         key={collection._id}
-        className="flex justify-start flex-col w-64 items-start gap-2"
+        className="flex justify-start flex-col w-64 items-start gap-y-2"
       >
-        <div className="flex justify-center items-center gap-x-2">
-          <div className="p-2 border-1 border-gray-300 rounded-full">
-            <BiCollection color="#059669" />
+        <div className="flex justify-between items-center w-full gap-x-2">
+          <div className="flex gap-x-2 justify-center items-center">
+            <div className="p-2 border-1 border-gray-300 rounded-full">
+              <BiCollection color="#059669" />
+            </div>
+            <h5>{collection.name}</h5>
           </div>
-          <h5>{collection.name}</h5>
+          <div className="flex gap-x-1">
+            <BiFontColor className="text-gray-400" />
+            <h5 className="text-xs text-gray-400">34 Words</h5>
+          </div>
         </div>
+        <hr />
         <p className="text-xs">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
           accusantium soluta ipsum quia veniam rerum
         </p>
+        <button></button>
       </div>
     </div>
   );
