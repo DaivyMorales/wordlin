@@ -27,8 +27,8 @@ h5 {
 }
 
 label {
-  @apply font-light;
-  font-size: 16px;
+  @apply font-medium;
+  font-size: 14px;
 }
 
 p {
@@ -37,7 +37,19 @@ p {
   color: #525252;
 }
 
-input[type="text"] {
+.noInput {
+  @apply text-sm px-1 w-full;
+}
+
+.noInput:focus {
+  outline: none;
+}
+
+.inputWithEmoji {
+  @apply flex justify-start items-center gap-x-1 border-1 shadow-sm rounded-lg px-2 py-1;
+}
+
+.inputText {
   @apply rounded-lg font-light pl-2 py-1 text-black placeholder:text-[#999999];
   width: 300px;
   font-size: 16px;
@@ -45,11 +57,11 @@ input[type="text"] {
   border-radius: 6px;
 }
 
-input[type="text"]:focus {
-  @apply shadow-lg shadow-blue-100 border-blue-400;
-  color: black;
+.inputText:focus {
   outline: none;
 }
+
+
 input[type="password"] {
   @apply rounded-lg font-light pl-2 py-1 text-black placeholder:text-[#999999];
   width: 300px;
@@ -65,8 +77,7 @@ input[type="password"]:focus {
 }
 
 button[type="submit"] {
-  @apply bg-blue-600 text-white py-3;
-  width: 300px;
+  @apply bg-emerald-500 text-white text-sm py-2 shadow-md drop-shadow-md border-1 border-emerald-600 ;
   border-radius: 6px;
 }
 
@@ -85,16 +96,17 @@ hr {
   width: 242px;
 }
 
-
-
-
 .add {
   position: absolute;
   /* top: 50px;
   left: 50px; */
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);/* Color de fondo del div de primer plano */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Color de fondo del div de primer plano */
   @apply flex justify-center items-center;
 }
-

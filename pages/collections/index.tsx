@@ -15,7 +15,6 @@ export default function Collections() {
         <BiHdd className="text-emerald-500" size={22} />
         <h3 className="font-semibold text-emerald-600 ">Collections</h3>
       </div>
-      {/* <button onClick={() => getCards()}>Load Cards</button> */}
       <div className="grid grid-cols-1 gap-y-3">
         <div className="flex  justify-center items-center">
           <button className="bg-white p-2 rounded-lg border-1 border-gray-200">
