@@ -1,6 +1,6 @@
 import { ICollection, collectionContext } from "@/contexts/collection.ctx";
 import { useContext } from "react";
-import { BiCollection, BiFontColor } from "react-icons/bi";
+import { BiCollection, BiFontColor, BiDuplicate } from "react-icons/bi";
 
 interface MyProps {
   collection: ICollection;
@@ -14,7 +14,7 @@ export default function BoxCollection({ collection }: MyProps) {
       <div
         onClick={() => setCollectionChoose(collection._id)}
         key={collection._id}
-        className="flex justify-start flex-col w-64 items-start gap-y-2"
+        className="flex justify-start flex-col w-72 items-start gap-y-2"
       >
         <div className="flex justify-between items-center w-full gap-x-2">
           <div className="flex gap-x-2 justify-center items-center">
@@ -29,11 +29,14 @@ export default function BoxCollection({ collection }: MyProps) {
           </div>
         </div>
         <hr />
+        <button className="flex gap-x-1 justify-center items-center text-xs border-1 text-black px-3 shadow-sm py-1 rounded-md">
+          <BiDuplicate />
+          Add
+        </button>
         <p className="text-xs">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
           accusantium soluta ipsum quia veniam rerum
         </p>
-        <button></button>
       </div>
     </div>
   );
