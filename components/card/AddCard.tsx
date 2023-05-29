@@ -10,6 +10,7 @@ import {
 } from "react-icons/bi";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
+import BoxCard from "./BoxCard";
 
 export default function AddCard() {
   const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
@@ -44,18 +45,15 @@ export default function AddCard() {
 
   return (
     <div className="add">
-      <div className=" bg-white border-gray-300 p-3 border-1 rounded-lg shadow-md">
-        <div className="flex justify-start flex-col w-96 items-start gap-y-2">
-          <div className="flex justify-between items-center w-full gap-x-2">
+      <div className=" bg-white border-gray-300 py-3 border-1 rounded-xl shadow-md">
+        <div className="flex justify-start flex-col w-96  items-start gap-y-2">
+          <div className="flex justify-between items-center  px-3 w-full gap-x-2">
             <div className="flex gap-x-2 justify-center items-center">
               <div className="p-2 border-1 border-gray-300 rounded-full">
                 <BiCollection color="#059669" />
               </div>
               <div className="flex flex-col">
                 <h4>{collectionInfo.name}</h4>
-                <p className="text-xs">
-                  By {session?.user.name}
-                </p>
               </div>
             </div>
             <div
@@ -76,38 +74,52 @@ export default function AddCard() {
             </div>
           </div>
           <hr className="w-full" />
+          <div className="w-full px-3">
+            <p className="text-xs">Creator: {session?.user.name}</p>
+            <div></div>
+          </div>
+          <hr />
+          <div className=" w-full px-3">
+            {/* Words */}
+            <div className="flex">
+              <BoxCard />
+            </div>
+          </div>
+          <hr className="" />
           <form
             onSubmit={formik.handleSubmit}
-            className="w-full p-4 flex flex-col gap-y-3 justify-center items-start"
+            className=" w-full p-4 flex-col flex gap-y-3 justify-center items-start"
           >
-            <div className="flex flex-col w-full">
-              <label htmlFor="">Word one</label>
-              <div className="inputWithEmoji w-full">
-                <BiShow className="text-gray-500" />
-                <input
-                  onChange={formik.handleChange}
-                  name="wordOne"
-                  type="text"
-                  className="noInput"
-                  placeholder="Add one word"
-                />
+            <div className="flex gap-x-2">
+              <div className="flex flex-col w-full">
+                <label htmlFor="">Word one</label>
+                <div className="inputWithEmoji w-full">
+                  <BiShow className="text-gray-500" />
+                  <input
+                    onChange={formik.handleChange}
+                    name="wordOne"
+                    type="text"
+                    className="noInput"
+                    placeholder="Add one word"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col w-full">
-              <label htmlFor="">Word Two</label>
-              <div className="inputWithEmoji w-full">
-                <BiLowVision className="text-gray-500" />
-                <input
-                  onChange={formik.handleChange}
-                  name="wordTwo"
-                  type="text"
-                  className="noInput"
-                  placeholder="Add two word"
-                />
+              <div className="flex flex-col w-full">
+                <label htmlFor="">Word Two</label>
+                <div className="inputWithEmoji w-full">
+                  <BiLowVision className="text-gray-500" />
+                  <input
+                    onChange={formik.handleChange}
+                    name="wordTwo"
+                    type="text"
+                    className="noInput"
+                    placeholder="Add two word"
+                  />
+                </div>
               </div>
             </div>
             <button type="submit" className="w-full">
-              Submit
+              Add
             </button>
           </form>
         </div>

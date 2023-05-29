@@ -91,9 +91,9 @@ button[type="submit"] {
 }
 
 hr {
-  @apply w-48 mx-auto bg-gray-300 border-0 rounded;
-  height: 2px;
-  width: 242px;
+  @apply w-48 mx-auto bg-gray-200 border-0 rounded;
+  height: 1px;
+  width: 362px;
 }
 
 .add {
