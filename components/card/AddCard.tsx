@@ -11,16 +11,13 @@ import {
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
 import BoxCard from "./BoxCard";
+import { motion } from "framer-motion";
 
 export default function AddCard() {
   const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
   const { setShowCardForm, createCard } = useContext(cardContext);
 
   const { data: session } = useSession();
-
-  useEffect(() => {
-    console.log("Collection id:", collectionInfo._id);
-  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -45,7 +42,11 @@ export default function AddCard() {
 
   return (
     <div className="add">
-      <div className=" bg-white border-gray-300 py-3 border-1 rounded-xl shadow-md">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.6 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className=" bg-white border-gray-300 py-3 border-1 rounded-xl shadow-md"
+      >
         <div className="flex justify-start flex-col w-96  items-start gap-y-2">
           <div className="flex justify-between items-center  px-3 w-full gap-x-2">
             <div className="flex gap-x-2 justify-center items-center">
@@ -82,7 +83,9 @@ export default function AddCard() {
           <div className=" w-full px-3">
             {/* Words */}
             <div className="flex">
-              <BoxCard />
+              {collectionInfo.Card.map((id) => (
+                <BoxCard idCard={id} key={id} />
+              ))}
             </div>
           </div>
           <hr className="" />
@@ -123,7 +126,7 @@ export default function AddCard() {
             </button>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
