@@ -1,6 +1,6 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { ICollection, collectionContext } from "@/contexts/collection.ctx";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BiCollection, BiFontColor, BiDuplicate } from "react-icons/bi";
 
 interface MyProps {
@@ -8,11 +8,13 @@ interface MyProps {
 }
 
 export default function BoxCollection({ collection }: MyProps) {
-  const { setCollectionChoose, setCollectionInfo } =
+  const { setCollectionChoose, setCollectionInfo, setCardsArray, cardsArray } =
     useContext(collectionContext);
   const { showCardForm, setShowCardForm } = useContext(cardContext);
 
-  
+  useEffect(() => {
+    setCardsArray(collection.Card);
+  }, []);
 
   return (
     <div className="border-gray-300 p-3 border-1 rounded-lg shadow-md">
@@ -31,9 +33,9 @@ export default function BoxCollection({ collection }: MyProps) {
           <div className="flex gap-x-1">
             <BiFontColor className="text-gray-400" />
             <h5 className="text-xs text-gray-400">
-              {collection.Card.length < 2
-                ? collection.Card.length + " Word"
-                : collection.Card.length + " Words"}{" "}
+              {cardsArray.length < 2
+                ? cardsArray.length + " Word"
+                : cardsArray.length + " Words"}{" "}
             </h5>
           </div>
         </div>

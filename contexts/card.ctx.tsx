@@ -1,5 +1,6 @@
 import axios from "axios";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
+import { collectionContext } from "./collection.ctx";
 
 interface MyProps {
   children: ReactNode;
@@ -28,6 +29,8 @@ export const cardContext = createContext<IContext>({
 });
 
 export const CardContextProvider = ({ children }: MyProps) => {
+  const { cardsArray, setCardsArray } = useContext(collectionContext);
+
   const [cards, setCards] = useState<ICard[]>([]);
   const [showCardForm, setShowCardForm] = useState<string>("");
 
@@ -39,7 +42,7 @@ export const CardContextProvider = ({ children }: MyProps) => {
   const createCard = async (body: object) => {
     const response = await axios.post("/api/card", body);
     setCards([...cards, response.data]);
-    console.log(response.status);
+    setCardsArray([...cardsArray, response.data._id]);
   };
 
   return (

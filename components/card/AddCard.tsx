@@ -1,6 +1,6 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   BiCollection,
   BiFontColor,
@@ -13,6 +13,10 @@ import { useFormik } from "formik";
 export default function AddCard() {
   const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
   const { setShowCardForm, createCard } = useContext(cardContext);
+
+  useEffect(() => {
+    console.log("Collection id:", collectionInfo._id);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
