@@ -9,10 +9,13 @@ import {
   BiX,
 } from "react-icons/bi";
 import { useFormik } from "formik";
+import { useSession } from "next-auth/react";
 
 export default function AddCard() {
   const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
   const { setShowCardForm, createCard } = useContext(cardContext);
+
+  const { data: session } = useSession();
 
   useEffect(() => {
     console.log("Collection id:", collectionInfo._id);
@@ -48,7 +51,12 @@ export default function AddCard() {
               <div className="p-2 border-1 border-gray-300 rounded-full">
                 <BiCollection color="#059669" />
               </div>
-              <h4>{collectionInfo.name}</h4>
+              <div className="flex flex-col">
+                <h4>{collectionInfo.name}</h4>
+                <p className="text-xs">
+                  By {session?.user.name}
+                </p>
+              </div>
             </div>
             <div
               onClick={() => {

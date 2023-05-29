@@ -14,6 +14,9 @@ export interface ICollection {
   updatedAt: string;
   createdAt: string;
 }
+interface ICardArray {
+  Card: string[];
+}
 
 interface IContext {
   collections: ICollection[];
@@ -29,9 +32,11 @@ interface IContext {
     createdAt: String;
   };
   setCollectionInfo: React.Dispatch<React.SetStateAction<ICollection>>;
-  cardsArray: string[];
+  cardsArray: {
+    Card: string[];
+  };
   setCardsArray: React.Dispatch<React.SetStateAction<string[]>>;
-  updateCollection: (id: string, body: object) => Promise<void>;
+  updateCollection: () => Promise<void>;
 }
 export const collectionContext = createContext<IContext>({
   collections: [],
@@ -47,9 +52,11 @@ export const collectionContext = createContext<IContext>({
     createdAt: "",
   },
   setCollectionInfo: () => {},
-  cardsArray: [],
+  cardsArray: {
+    Card: [],
+  },
   setCardsArray: () => [],
-  updateCollection: async (id, body) => {},
+  updateCollection: async () => {},
 });
 
 export const CollectionContextProvider = ({ children }: MyProps) => {
@@ -64,8 +71,10 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
     updatedAt: "",
     createdAt: "",
   });
-  const [cardsArray, setCardsArray] = useState<string[]>([]);
-  console.log("cardsArray", cardsArray);
+  const [cardsArray, setCardsArray] = useState<any>({
+    Card: [],
+  });
+  console.log("ARRAY:", cardsArray.Card);
 
   const { data: session, status } = useSession();
 
@@ -89,11 +98,15 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
     }
   }, [status]);
 
-  const updateCollection = async (id: string, body: object) => {
-    const response = await axios.put(`/api/collection/${id}`, body);
+  const updateCollection = async () => {
+    // console.log(id, body);
+    const response = await axios.put(
+      `/api/collection/${collectionChoose}`,
+      cardsArray
+    );
     setCollections(
       collections.map((collection) => {
-        if (collection._id === id) {
+        if (collection._id === collectionChoose) {
           return response.data;
         } else {
           return collection;

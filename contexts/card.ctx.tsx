@@ -29,7 +29,8 @@ export const cardContext = createContext<IContext>({
 });
 
 export const CardContextProvider = ({ children }: MyProps) => {
-  const { cardsArray, setCardsArray } = useContext(collectionContext);
+  const { cardsArray, setCardsArray, updateCollection, collectionChoose } =
+    useContext(collectionContext);
 
   const [cards, setCards] = useState<ICard[]>([]);
   const [showCardForm, setShowCardForm] = useState<string>("");
@@ -41,8 +42,15 @@ export const CardContextProvider = ({ children }: MyProps) => {
 
   const createCard = async (body: object) => {
     const response = await axios.post("/api/card", body);
+    console.log(response.status);
     setCards([...cards, response.data]);
-    setCardsArray([...cardsArray, response.data._id]);
+
+    if (response.status === 200) {
+      setCardsArray({
+        Card: [...cardsArray.Card, response.data._id],
+      });
+      await updateCollection();
+    }
   };
 
   return (
