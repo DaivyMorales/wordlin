@@ -12,15 +12,26 @@ import { useFormik } from "formik";
 
 export default function AddCard() {
   const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
-  const { setShowCardForm } = useContext(cardContext);
+  const { setShowCardForm, createCard } = useContext(cardContext);
 
   const formik = useFormik({
     initialValues: {
       wordOne: "",
       wordTwo: "",
     },
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
+      createCard(values);
       console.log(values);
+      resetForm();
+      setShowCardForm("");
+      setCollectionInfo({
+        _id: "",
+        name: "",
+        Card: [],
+        User: "",
+        updatedAt: "",
+        createdAt: "",
+      });
     },
   });
 
@@ -67,7 +78,7 @@ export default function AddCard() {
                   type="text"
                   className="noInput"
                   placeholder="Add one word"
-                  />
+                />
               </div>
             </div>
             <div className="flex flex-col w-full">
