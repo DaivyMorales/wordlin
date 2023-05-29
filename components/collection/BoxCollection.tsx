@@ -12,6 +12,8 @@ export default function BoxCollection({ collection }: MyProps) {
     useContext(collectionContext);
   const { showCardForm, setShowCardForm } = useContext(cardContext);
 
+  
+
   return (
     <div className="border-gray-300 p-3 border-1 rounded-lg shadow-md">
       <div
@@ -28,7 +30,11 @@ export default function BoxCollection({ collection }: MyProps) {
           </div>
           <div className="flex gap-x-1">
             <BiFontColor className="text-gray-400" />
-            <h5 className="text-xs text-gray-400">34 Words</h5>
+            <h5 className="text-xs text-gray-400">
+              {collection.Card.length < 2
+                ? collection.Card.length + " Word"
+                : collection.Card.length + " Words"}{" "}
+            </h5>
           </div>
         </div>
         <hr />

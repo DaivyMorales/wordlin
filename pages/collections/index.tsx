@@ -23,7 +23,7 @@ export default function Collections() {
         </div>
         <div className="straight-line"></div>
         {collections.map((collection) => (
-          <BoxCollection collection={collection} />
+          <BoxCollection collection={collection} key={collection._id} />
         ))}
       </div>
       {showCardForm ? <AddCard /> : ""}

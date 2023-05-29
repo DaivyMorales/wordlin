@@ -8,10 +8,22 @@ import {
   BiShow,
   BiX,
 } from "react-icons/bi";
+import { useFormik } from "formik";
 
 export default function AddCard() {
   const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
   const { setShowCardForm } = useContext(cardContext);
+
+  const formik = useFormik({
+    initialValues: {
+      wordOne: "",
+      wordTwo: "",
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <div className="add">
       <div className=" bg-white border-gray-300 p-3 border-1 rounded-lg shadow-md">
@@ -41,16 +53,21 @@ export default function AddCard() {
             </div>
           </div>
           <hr className="w-full" />
-          <form className="w-full p-4 flex flex-col gap-y-3 justify-center items-start">
+          <form
+            onSubmit={formik.handleSubmit}
+            className="w-full p-4 flex flex-col gap-y-3 justify-center items-start"
+          >
             <div className="flex flex-col w-full">
               <label htmlFor="">Word one</label>
               <div className="inputWithEmoji w-full">
                 <BiShow className="text-gray-500" />
                 <input
+                  onChange={formik.handleChange}
+                  name="wordOne"
                   type="text"
                   className="noInput"
                   placeholder="Add one word"
-                />
+                  />
               </div>
             </div>
             <div className="flex flex-col w-full">
@@ -58,6 +75,8 @@ export default function AddCard() {
               <div className="inputWithEmoji w-full">
                 <BiLowVision className="text-gray-500" />
                 <input
+                  onChange={formik.handleChange}
+                  name="wordTwo"
                   type="text"
                   className="noInput"
                   placeholder="Add two word"
