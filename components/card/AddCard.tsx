@@ -8,7 +8,7 @@ import BoxCard from "./BoxCard";
 import { motion } from "framer-motion";
 import axios from "axios";
 
-interface ICardState {
+export interface ICardState {
   Card: string[];
 }
 
@@ -25,6 +25,7 @@ export default function AddCard() {
   const [myCards, setMyCards] = useState<ICardState>({
     Card: [],
   });
+  console.log(myCards)
 
   const { data: session } = useSession();
 
@@ -63,6 +64,11 @@ export default function AddCard() {
     }
   };
 
+  const deleteCard = async (id: string | undefined) => {
+    await axios.delete(`/api/card/${id}`);
+    setCards(cards.filter((card) => card._id !== id));
+  };
+
   const formik = useFormik({
     initialValues: {
       wordOne: "",
@@ -81,7 +87,10 @@ export default function AddCard() {
         animate={{ opacity: 1, scale: 1 }}
         className=" bg-white border-gray-300 py-3 border-1 rounded-xl shadow-md"
       >
-        <div style={{width: "600px"}} className="flex justify-start flex-col  items-start gap-y-2">
+        <div
+          style={{ width: "600px" }}
+          className="flex justify-start flex-col  items-start gap-y-2"
+        >
           <div className="flex justify-between items-center  px-3 w-full gap-x-2">
             <div className="flex gap-x-2 justify-center items-center">
               <div className="p-2 border-1 border-gray-300 rounded-full">
@@ -114,11 +123,17 @@ export default function AddCard() {
             <div></div>
           </div>
           <hr />
-          <div className="scroll-div w-full px-3" >
+          <div className="scroll-div w-full p-3">
             {/* Words */}
             <div className="flex flex-wrap gap-2">
               {myCards.Card.map((cardId) => (
-                <BoxCard cardId={cardId} key={cardId} />
+                <BoxCard
+                  cardId={cardId}
+                  key={cardId}
+                  setMyCards={setMyCards}
+                  myCards={myCards}
+                  deleteCard={deleteCard}
+                />
               ))}
             </div>
           </div>
@@ -154,9 +169,9 @@ export default function AddCard() {
                   />
                 </div>
               </div>
-            <button type="submit" className="px-4 py-1">
-              Add
-            </button>
+              <button type="submit" className="px-4 py-1">
+                Add
+              </button>
             </div>
           </form>
         </div>
