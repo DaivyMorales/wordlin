@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
 import BoxCollection from "../../components/collection/BoxCollection";
@@ -26,6 +26,10 @@ export default function Collections() {
       })
     );
   };
+
+  useEffect(() => {
+    getCards();
+  }, []);
 
   return (
     <div className="relative z-10 w-screen h-screen flex gap-4 justify-center items-center flex-col">

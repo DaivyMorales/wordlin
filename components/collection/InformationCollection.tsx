@@ -1,6 +1,7 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
 import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import {
   BiCollection,
   BiFontColor,
@@ -10,25 +11,41 @@ import {
 } from "react-icons/bi";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
-import BoxCard from "./BoxCard";
+// import BoxCard from "./BoxCard";
+import { motion } from "framer-motion";
 
-export default function AddCard() {
-  const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
-  const { setShowCardForm, createCard } = useContext(cardContext);
+export default function InformationCollection() {
+  // const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
+  // const { setShowCardForm, setCards, cards } = useContext(cardContext);
+  // const { data: session } = useSession();
 
-  const [myCards, setmyCards] = useState({
-    Card: [],
-  });
+  // const [myCards, setMyCards] = useState({
+  //   Card: [],
+  // });
 
-  console.log("myCards", myCards.Card);
+  
+  // console.log(myCards.Card);
 
-  const { data: session } = useSession();
+  const createCard = async (body: object) => {
+    console.log("creando");
+    // const response = await axios.post("/api/card", body);
+    // setCards([...cards, response.data]);
 
-  useEffect(() => {
-    setmyCards({
-      Card: collectionInfo.Card,
-    });
-  }, []);
+    // setMyCards((prevMyCards) => ({
+    //   Card: [...prevMyCards.Card, response.data],
+    // }));
+
+    // setShowCardForm("");
+
+    // setCollectionInfo({
+    //   _id: "",
+    //   name: "",
+    //   Card: [],
+    //   User: "",
+    //   updatedAt: "",
+    //   createdAt: "",
+    // });
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -37,22 +54,19 @@ export default function AddCard() {
     },
     onSubmit: async (values, { resetForm }) => {
       // createCard(values);
-      console.log(values);
-      setCollectionInfo({
-        _id: "",
-        name: "",
-        Card: [],
-        User: "",
-        updatedAt: "",
-        createdAt: "",
-      });
-      resetForm();
+      // resetForm();
     },
   });
 
+  console.log("hola");
+  
   return (
     <div className="add">
-      <div className=" bg-white border-gray-300 py-3 border-1 rounded-xl shadow-md">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.6 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className=" bg-white border-gray-300 py-3 border-1 rounded-xl shadow-md"
+      >
         <div className="flex justify-start flex-col w-96  items-start gap-y-2">
           <div className="flex justify-between items-center  px-3 w-full gap-x-2">
             <div className="flex gap-x-2 justify-center items-center">
@@ -60,10 +74,10 @@ export default function AddCard() {
                 <BiCollection color="#059669" />
               </div>
               <div className="flex flex-col">
-                <h4>{collectionInfo.name}</h4>
+                {/* <h4>{collectionInfo.name}</h4> */}
               </div>
             </div>
-            <div
+            {/* <div
               onClick={() => {
                 setShowCardForm("");
                 setCollectionInfo({
@@ -78,20 +92,21 @@ export default function AddCard() {
               className="text-gray-500 p-1 rounded-full hover:bg-gray-100 cursor-pointer"
             >
               <BiX className="" size={17} />
-            </div>
+            </div> */}
           </div>
           <hr className="w-full" />
           <div className="w-full px-3">
-            <p className="text-xs">Creator: {session?.user.name}</p>
+            {/* <p className="text-xs">Creator: {session?.user.name}</p> */}
             <div></div>
           </div>
           <hr />
           <div className=" w-full px-3">
-            <div className="flex">
-              {myCards.Card.map((card) => (
-                <BoxCard cardId={card} key={card} />
+            {/* Words */}
+            {/* <div className="flex">
+              {myCards.Card.map((id) => (
+                <BoxCard idCard={id} key={id} />
               ))}
-            </div>
+            </div> */}
           </div>
           <hr className="" />
           <form
@@ -131,7 +146,8 @@ export default function AddCard() {
             </button>
           </form>
         </div>
-      </div>
+        <input type="text" />
+      </motion.div>
     </div>
   );
 }
