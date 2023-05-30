@@ -28,8 +28,6 @@ export const cardContext = createContext<IContext>({
   showCardForm: "",
   setShowCardForm: () => {},
   createCard: async (body) => {},
-  cards: [],
-  setCards: () => {},
 });
 
 export const CardContextProvider = ({ children }: MyProps) => {
@@ -49,24 +47,17 @@ export const CardContextProvider = ({ children }: MyProps) => {
     console.log(response.status);
     setCards([...cards, response.data]);
 
-    if (response.status === 200) {
-      setCardsArray({
-        Card: [...cardsArray.Card, response.data._id],
-      });
-      await updateCollection();
-    }
+    // if (response.status === 200) {
+    //   setCardsArray({
+    //     // Card: [...cardsArray.Card, response.data._id],
+    //   });
+    //   await updateCollection();
+    // }
   };
 
   return (
     <cardContext.Provider
-      value={{
-        getCards,
-        showCardForm,
-        setShowCardForm,
-        createCard,
-        cards,
-        setCards,
-      }}
+      value={{ getCards, showCardForm, setShowCardForm, createCard }}
     >
       {children}
     </cardContext.Provider>

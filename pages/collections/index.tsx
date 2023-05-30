@@ -11,6 +11,10 @@ export default function Collections() {
   const { collections, collectionChoose, setCollections } =
     useContext(collectionContext);
 
+  useEffect(() => {
+    getCards();
+  }, []);
+
   const updateCollection = async (cards: object) => {
     const response = await axios.put(
       `/api/collection/${collectionChoose}`,
