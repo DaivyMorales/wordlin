@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from 'react';
 import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
 import BoxCollection from "../../components/collection/BoxCollection";
@@ -15,6 +15,7 @@ export default function Collections() {
     getCards();
   }, []);
 
+  
   const updateCollection = async (cards: object) => {
     const response = await axios.put(
       `/api/collection/${collectionChoose}`,

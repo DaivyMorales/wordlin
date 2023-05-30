@@ -9,14 +9,12 @@ interface MyProps {
 export interface ICollection {
   _id: string;
   name: string;
-  Card: [];
+  Card: string[];
   User: string;
   updatedAt: string;
   createdAt: string;
 }
-interface ICardArray {
-  Card: string[];
-}
+
 
 interface IContext {
   collections: ICollection[];
@@ -26,7 +24,7 @@ interface IContext {
   collectionInfo: {
     _id: String;
     name: String;
-    Card: [];
+    Card: string[];
     User: String;
     updatedAt: String;
     createdAt: String;
@@ -46,14 +44,14 @@ export const collectionContext = createContext<IContext>({
   collectionInfo: {
     _id: "",
     name: "",
-    Card: [],
+    Card: [""],
     User: "",
     updatedAt: "",
     createdAt: "",
   },
   setCollectionInfo: () => {},
   cardsArray: {
-    Card: [],
+    Card: [""],
   },
   setCardsArray: () => [],
   updateCollection: async () => {},
@@ -74,7 +72,6 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
   const [cardsArray, setCardsArray] = useState<any>({
     Card: [],
   });
-  console.log("ARRAY:", cardsArray.Card);
 
   const { data: session, status } = useSession();
 

@@ -1,42 +1,16 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { ICollection, collectionContext } from "@/contexts/collection.ctx";
 import { useContext, useEffect, useState } from "react";
-import {
-  BiCollection,
-  BiFontColor,
-  BiDuplicate,
-  BiLinkExternal,
-} from "react-icons/bi";
-import axios from "axios";
+import { BiCollection, BiLinkExternal } from "react-icons/bi";
 
 interface MyProps {
   collection: ICollection;
 }
 
 export default function BoxCollection({ collection }: MyProps) {
-  const {
-    setCollectionChoose,
-    collectionChoose,
-    setCollectionInfo,
-    setCardsArray,
-    cardsArray,
-    collections,
-    setCollections,
-  } = useContext(collectionContext);
-  const { showCardForm, setShowCardForm } = useContext(cardContext);
-
-  const [myCards, setMyCards] = useState({
-    Card: [],
-  });
-
-  useEffect(() => {
-    setMyCards({
-      Card: collection.Card.map((card) => card),
-    });
-    // setCardsArray({
-    //   Card: collection.Card.map((card) => card),
-    // });
-  }, []);
+  const { setCollectionChoose, setCollectionInfo } =
+    useContext(collectionContext);
+  const { setShowCardForm } = useContext(cardContext);
 
   return (
     <div className=" p-3  rounded-lg">
@@ -50,15 +24,11 @@ export default function BoxCollection({ collection }: MyProps) {
             <div className="p-2 border-1 border-gray-300 rounded-full">
               <BiCollection color="#059669" />
             </div>
-            <p className="text-sm text-black font-semibold">{collection.name}</p>
+            <p className="text-sm text-black font-semibold">
+              {collection.name}
+            </p>
           </div>
           <div className="flex gap-x-1">
-            {/* <BiFontColor className="text-gray-400" />
-            <h5 className="text-xs text-gray-400">
-              {cardsArray.Card.length === 1
-                ? cardsArray.Card.length + " Word"
-                : cardsArray.Card.length + " Words"}{" "}
-            </h5> */}
             <div
               className="cursor-pointer"
               onClick={() => {

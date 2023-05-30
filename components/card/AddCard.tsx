@@ -1,6 +1,6 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   BiCollection,
   BiFontColor,
@@ -13,14 +13,24 @@ import { useSession } from "next-auth/react";
 import BoxCard from "./BoxCard";
 import { motion } from "framer-motion";
 
+interface ICardState {
+  Card: string[];
+}
+
 export default function AddCard() {
   const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
   const { setShowCardForm, createCard } = useContext(cardContext);
 
+  const [myCards, setMyCards] = useState<ICardState>({
+    Card: [],
+  });
+
   const { data: session } = useSession();
 
   useEffect(() => {
-    console.log("Collection id:", collectionInfo._id);
+    setMyCards({
+      Card: [collectionInfo._id.toString()],
+    });
   }, []);
 
   const formik = useFormik({
@@ -29,18 +39,10 @@ export default function AddCard() {
       wordTwo: "",
     },
     onSubmit: async (values, { resetForm }) => {
-      createCard(values);
-      console.log(values);
+      // createCard(values);
+      // console.log(values);
       resetForm();
-      setShowCardForm("");
-      setCollectionInfo({
-        _id: "",
-        name: "",
-        Card: [],
-        User: "",
-        updatedAt: "",
-        createdAt: "",
-      });
+      // setShowCardForm("");
     },
   });
 
@@ -87,7 +89,9 @@ export default function AddCard() {
           <div className=" w-full px-3">
             {/* Words */}
             <div className="flex">
-              <BoxCard />
+              {myCards.Card.map((cardId) => (
+                <BoxCard cardId={cardId} key={cardId} />
+              ))}
             </div>
           </div>
           <hr className="" />
