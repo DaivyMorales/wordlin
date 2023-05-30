@@ -25,7 +25,7 @@ export default function AddCard() {
   const [myCards, setMyCards] = useState<ICardState>({
     Card: [],
   });
-  console.log(myCards)
+  console.log(myCards);
 
   const { data: session } = useSession();
 
@@ -33,6 +33,8 @@ export default function AddCard() {
     setMyCards({
       Card: collectionInfo.Card.map((card) => card),
     });
+
+    console.log(collectionInfo);
   }, []);
 
   const updateCollection = async (cards: object) => {
@@ -65,8 +67,19 @@ export default function AddCard() {
   };
 
   const deleteCard = async (id: string | undefined) => {
-    await axios.delete(`/api/card/${id}`);
+    const response = await axios.delete(`/api/card/${id}`);
     setCards(cards.filter((card) => card._id !== id));
+    // setMyCards({
+    //   Card: myCards.Card.filter((crd) => crd !== id),
+    // });
+
+    if (response.status === 200) {
+      const updatedCards = {
+        Card: myCards.Card.filter((crd) => crd !== id),
+      };
+      setMyCards(updatedCards);
+      await updateCollection(updatedCards);
+    }
   };
 
   const formik = useFormik({
@@ -127,13 +140,7 @@ export default function AddCard() {
             {/* Words */}
             <div className="flex flex-wrap gap-2">
               {myCards.Card.map((cardId) => (
-                <BoxCard
-                  cardId={cardId}
-                  key={cardId}
-                  setMyCards={setMyCards}
-                  myCards={myCards}
-                  deleteCard={deleteCard}
-                />
+                <BoxCard cardId={cardId} key={cardId} deleteCard={deleteCard} />
               ))}
             </div>
           </div>

@@ -2,21 +2,13 @@ import { cardContext } from "@/contexts/card.ctx";
 import React, { useContext, useState } from "react";
 import { BiFontColor } from "react-icons/bi";
 import { motion } from "framer-motion";
-import { ICardState } from "./AddCard";
 
 interface MyProps {
   cardId: String;
-  setMyCards: React.Dispatch<React.SetStateAction<ICardState>>;
-  myCards: ICardState;
   deleteCard: (id: string | undefined) => Promise<void>;
 }
 
-export default function BoxCard({
-  cardId,
-  setMyCards,
-  myCards,
-  deleteCard,
-}: MyProps) {
+export default function BoxCard({ cardId, deleteCard }: MyProps) {
   const { cards } = useContext(cardContext);
 
   const [hover, setHover] = useState<boolean>(false);
@@ -26,10 +18,6 @@ export default function BoxCard({
   return (
     <motion.div
       onClick={() => {
-        setMyCards({
-          Card: myCards.Card.filter((crd) => cardFound?._id !== crd._id),
-        });
-
         deleteCard(cardFound?._id);
       }}
       onMouseEnter={() => setHover(true)}
