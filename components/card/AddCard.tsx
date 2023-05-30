@@ -20,11 +20,15 @@ export default function AddCard() {
     collections,
     collectionChoose,
   } = useContext(collectionContext);
-  const { setShowCardForm, setCards, cards } = useContext(cardContext);
-
-  const [myCards, setMyCards] = useState<ICardState>({
-    Card: [],
-  });
+  const {
+    setShowCardForm,
+    setCards,
+    cards,
+    myCards,
+    setMyCards,
+    createCard,
+    deleteCard,
+  } = useContext(cardContext);
 
   const { data: session } = useSession();
 
@@ -33,48 +37,6 @@ export default function AddCard() {
       Card: collectionInfo.Card.map((card) => card),
     });
   }, []);
-
-  const updateCollection = async (cards: object) => {
-    const response = await axios.put(
-      `/api/collection/${collectionChoose}`,
-      cards
-    );
-    setCollections(
-      collections.map((collection) => {
-        if (collection._id === collectionChoose) {
-          return response.data;
-        } else {
-          return collection;
-        }
-      })
-    );
-  };
-
-  const createCard = async (body: object) => {
-    const response = await axios.post("/api/card", body);
-    setCards([...cards, response.data]);
-
-    if (response.status === 200) {
-      const updatedCards = {
-        Card: [...myCards.Card, response.data._id],
-      };
-      setMyCards(updatedCards);
-      await updateCollection(updatedCards);
-    }
-  };
-
-  const deleteCard = async (id: string | undefined) => {
-    const response = await axios.delete(`/api/card/${id}`);
-    setCards(cards.filter((card) => card._id !== id));
-
-    if (response.status === 200) {
-      const updatedCards = {
-        Card: myCards.Card.filter((crd) => crd !== id),
-      };
-      setMyCards(updatedCards);
-      await updateCollection(updatedCards);
-    }
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -118,6 +80,9 @@ export default function AddCard() {
                   updatedAt: "",
                   createdAt: "",
                 });
+                setMyCards({
+                  Card: [],
+                });
               }}
               className="text-gray-500 p-1 rounded-full hover:bg-gray-100 cursor-pointer"
             >
@@ -126,7 +91,12 @@ export default function AddCard() {
           </div>
           <hr className="w-full" />
           <div className="w-full px-3">
-            <p className="text-xs">Creator: <span className="text-black font-medium">{session?.user.name}</span></p>
+            <p className="text-xs">
+              Creator:{" "}
+              <span className="text-black font-medium">
+                {session?.user.name}
+              </span>
+            </p>
             <div></div>
           </div>
           <hr />
@@ -134,7 +104,7 @@ export default function AddCard() {
             {/* Words */}
             <div className="flex flex-wrap gap-2">
               {myCards.Card.map((cardId) => (
-                <BoxCard cardId={cardId} key={cardId} deleteCard={deleteCard} />
+                <BoxCard cardId={cardId} key={cardId} />
               ))}
             </div>
           </div>

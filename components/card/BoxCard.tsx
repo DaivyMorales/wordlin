@@ -5,11 +5,10 @@ import { motion } from "framer-motion";
 
 interface MyProps {
   cardId: String;
-  deleteCard: (id: string | undefined) => Promise<void>;
 }
 
-export default function BoxCard({ cardId, deleteCard }: MyProps) {
-  const { cards } = useContext(cardContext);
+export default function BoxCard({ cardId }: MyProps) {
+  const { cards, deleteCard } = useContext(cardContext);
 
   const [hover, setHover] = useState<boolean>(false);
 

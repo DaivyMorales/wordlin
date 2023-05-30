@@ -15,7 +15,6 @@ export interface ICollection {
   createdAt: string;
 }
 
-
 interface IContext {
   collections: ICollection[];
   setCollections: React.Dispatch<React.SetStateAction<ICollection[]>>;
@@ -34,7 +33,7 @@ interface IContext {
     Card: string[];
   };
   setCardsArray: React.Dispatch<React.SetStateAction<string[]>>;
-  updateCollection: () => Promise<void>;
+  updateCollection: (cards: object) => Promise<void>;
 }
 export const collectionContext = createContext<IContext>({
   collections: [],
@@ -49,7 +48,7 @@ export const collectionContext = createContext<IContext>({
     updatedAt: "",
     createdAt: "",
   },
-  setCollectionInfo: () => {},
+  setCollectionInfo: (cards: object) => {},
   cardsArray: {
     Card: [""],
   },
@@ -95,11 +94,10 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
     }
   }, [status]);
 
-  const updateCollection = async () => {
-    // console.log(id, body);
+  const updateCollection = async (cards: object) => {
     const response = await axios.put(
       `/api/collection/${collectionChoose}`,
-      cardsArray
+      cards
     );
     setCollections(
       collections.map((collection) => {
