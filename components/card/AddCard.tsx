@@ -1,6 +1,6 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import {
   BiCollection,
   BiFontColor,
@@ -17,12 +17,6 @@ export default function AddCard() {
   const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
   const { setShowCardForm, createCard } = useContext(cardContext);
 
-  const [myCards, setmyCards] = useState({
-    Card: [],
-  });
-
-  console.log("myCards", myCards.Card);
-
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -35,8 +29,10 @@ export default function AddCard() {
       wordTwo: "",
     },
     onSubmit: async (values, { resetForm }) => {
-      // createCard(values);
+      createCard(values);
       console.log(values);
+      resetForm();
+      setShowCardForm("");
       setCollectionInfo({
         _id: "",
         name: "",
@@ -45,7 +41,6 @@ export default function AddCard() {
         updatedAt: "",
         createdAt: "",
       });
-      resetForm();
     },
   });
 
@@ -90,6 +85,7 @@ export default function AddCard() {
           </div>
           <hr />
           <div className=" w-full px-3">
+            {/* Words */}
             <div className="flex">
               <BoxCard />
             </div>

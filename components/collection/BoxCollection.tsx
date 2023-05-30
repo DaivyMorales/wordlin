@@ -53,6 +53,12 @@ export default function BoxCollection({ collection }: MyProps) {
             <p className="text-sm text-black font-semibold">{collection.name}</p>
           </div>
           <div className="flex gap-x-1">
+            {/* <BiFontColor className="text-gray-400" />
+            <h5 className="text-xs text-gray-400">
+              {cardsArray.Card.length === 1
+                ? cardsArray.Card.length + " Word"
+                : cardsArray.Card.length + " Words"}{" "}
+            </h5> */}
             <div
               className="cursor-pointer"
               onClick={() => {

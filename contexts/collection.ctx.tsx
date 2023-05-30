@@ -74,6 +74,7 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
   const [cardsArray, setCardsArray] = useState<any>({
     Card: [],
   });
+  console.log("ARRAY:", cardsArray.Card);
 
   const { data: session, status } = useSession();
 

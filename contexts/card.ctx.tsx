@@ -19,8 +19,6 @@ interface IContext {
   showCardForm: string;
   setShowCardForm: React.Dispatch<React.SetStateAction<string>>;
   createCard: (body: object) => Promise<void>;
-  cards: ICard[];
-  setCards: React.Dispatch<React.SetStateAction<ICard[]>>;
 }
 
 export const cardContext = createContext<IContext>({
