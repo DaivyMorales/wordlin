@@ -35,7 +35,6 @@ export default function AddCard() {
   }, []);
 
   const updateCollection = async (cards: object) => {
-    console.log("cards", cards);
     const response = await axios.put(
       `/api/collection/${collectionChoose}`,
       cards
@@ -53,7 +52,6 @@ export default function AddCard() {
 
   const createCard = async (body: object) => {
     const response = await axios.post("/api/card", body);
-    console.log(response.status);
     setCards([...cards, response.data]);
 
     if (response.status === 200) {
@@ -73,8 +71,6 @@ export default function AddCard() {
     onSubmit: async (values, { resetForm }) => {
       createCard(values);
       resetForm();
-      // console.log(values);
-      // setShowCardForm("");
     },
   });
 
@@ -85,7 +81,7 @@ export default function AddCard() {
         animate={{ opacity: 1, scale: 1 }}
         className=" bg-white border-gray-300 py-3 border-1 rounded-xl shadow-md"
       >
-        <div className="flex justify-start flex-col w-96  items-start gap-y-2">
+        <div style={{width: "600px"}} className="flex justify-start flex-col  items-start gap-y-2">
           <div className="flex justify-between items-center  px-3 w-full gap-x-2">
             <div className="flex gap-x-2 justify-center items-center">
               <div className="p-2 border-1 border-gray-300 rounded-full">
@@ -118,9 +114,9 @@ export default function AddCard() {
             <div></div>
           </div>
           <hr />
-          <div className=" w-full px-3">
+          <div className="scroll-div w-full px-3" >
             {/* Words */}
-            <div className="flex">
+            <div className="flex flex-wrap gap-2">
               {myCards.Card.map((cardId) => (
                 <BoxCard cardId={cardId} key={cardId} />
               ))}
@@ -129,39 +125,39 @@ export default function AddCard() {
           <hr className="" />
           <form
             onSubmit={formik.handleSubmit}
-            className=" w-full p-4 flex-col flex gap-y-3 justify-center items-start"
+            className=" w-full px-4 flex-col flex gap-y-3 justify-center items-center"
           >
             <div className="flex gap-x-2">
               <div className="flex flex-col w-full">
-                <label htmlFor="">Word one</label>
-                <div className="inputWithEmoji w-full">
+                {/* <label htmlFor="">Word one</label> */}
+                <div className="inputWithEmoji w-full" tabIndex={1}>
                   <BiShow className="text-gray-500" />
                   <input
                     onChange={formik.handleChange}
                     name="wordOne"
                     type="text"
                     className="noInput"
-                    placeholder="Add one word"
+                    placeholder="Front word"
                   />
                 </div>
               </div>
               <div className="flex flex-col w-full">
-                <label htmlFor="">Word Two</label>
-                <div className="inputWithEmoji w-full">
+                {/* <label htmlFor="">Word Two</label> */}
+                <div className="inputWithEmoji w-full" tabIndex={1}>
                   <BiLowVision className="text-gray-500" />
                   <input
                     onChange={formik.handleChange}
                     name="wordTwo"
                     type="text"
                     className="noInput"
-                    placeholder="Add two word"
+                    placeholder="Back word"
                   />
                 </div>
               </div>
-            </div>
-            <button type="submit" className="w-full">
+            <button type="submit" className="px-4 py-1">
               Add
             </button>
+            </div>
           </form>
         </div>
       </motion.div>
