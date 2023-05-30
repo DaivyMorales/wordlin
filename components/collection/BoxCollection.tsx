@@ -1,5 +1,6 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { ICollection, collectionContext } from "@/contexts/collection.ctx";
+import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { BiCollection, BiLinkExternal } from "react-icons/bi";
 
@@ -28,6 +29,7 @@ export default function BoxCollection({ collection }: MyProps) {
               {collection.name}
             </p>
           </div>
+          <button><Link href="/collections/PlayCollection">Play</Link></button>
           <div className="flex gap-x-1">
             <div
               className="cursor-pointer"

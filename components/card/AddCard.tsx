@@ -25,7 +25,6 @@ export default function AddCard() {
   const [myCards, setMyCards] = useState<ICardState>({
     Card: [],
   });
-  console.log(myCards);
 
   const { data: session } = useSession();
 
@@ -33,8 +32,6 @@ export default function AddCard() {
     setMyCards({
       Card: collectionInfo.Card.map((card) => card),
     });
-
-    console.log(collectionInfo);
   }, []);
 
   const updateCollection = async (cards: object) => {
@@ -69,9 +66,6 @@ export default function AddCard() {
   const deleteCard = async (id: string | undefined) => {
     const response = await axios.delete(`/api/card/${id}`);
     setCards(cards.filter((card) => card._id !== id));
-    // setMyCards({
-    //   Card: myCards.Card.filter((crd) => crd !== id),
-    // });
 
     if (response.status === 200) {
       const updatedCards = {
@@ -132,7 +126,7 @@ export default function AddCard() {
           </div>
           <hr className="w-full" />
           <div className="w-full px-3">
-            <p className="text-xs">Creator: {session?.user.name}</p>
+            <p className="text-xs">Creator: <span className="text-black font-medium">{session?.user.name}</span></p>
             <div></div>
           </div>
           <hr />

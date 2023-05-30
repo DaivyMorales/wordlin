@@ -1,5 +1,5 @@
 import { cardContext } from "@/contexts/card.ctx";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiFontColor } from "react-icons/bi";
 import { motion } from "framer-motion";
 
@@ -25,6 +25,7 @@ export default function BoxCard({ cardId, deleteCard }: MyProps) {
       whileHover={{
         scale: 1.1,
       }}
+      // initial={{ scale: 1 }}
       whileTap={{ scale: 0.9 }}
       className={`text-sm shadow-sm font-medium flex cursor-pointer px-3 justify-center items-center rounded-md border-1 ${
         hover ? "text-red-500 border-red-600" : ""
