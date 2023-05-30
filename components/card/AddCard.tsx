@@ -1,25 +1,26 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
 import { useContext, useEffect, useState } from "react";
-import {
-  BiCollection,
-  BiFontColor,
-  BiLowVision,
-  BiShow,
-  BiX,
-} from "react-icons/bi";
+import { BiCollection, BiLowVision, BiShow, BiX } from "react-icons/bi";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
 import BoxCard from "./BoxCard";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 interface ICardState {
   Card: string[];
 }
 
 export default function AddCard() {
-  const { collectionInfo, setCollectionInfo } = useContext(collectionContext);
-  const { setShowCardForm, createCard } = useContext(cardContext);
+  const {
+    collectionInfo,
+    setCollectionInfo,
+    setCollections,
+    collections,
+    collectionChoose,
+  } = useContext(collectionContext);
+  const { setShowCardForm, setCards, cards } = useContext(cardContext);
 
   const [myCards, setMyCards] = useState<ICardState>({
     Card: [],
@@ -29,9 +30,40 @@ export default function AddCard() {
 
   useEffect(() => {
     setMyCards({
-      Card: [collectionInfo._id.toString()],
+      Card: collectionInfo.Card.map((card) => card),
     });
   }, []);
+
+  const updateCollection = async (cards: object) => {
+    console.log("cards", cards);
+    const response = await axios.put(
+      `/api/collection/${collectionChoose}`,
+      cards
+    );
+    setCollections(
+      collections.map((collection) => {
+        if (collection._id === collectionChoose) {
+          return response.data;
+        } else {
+          return collection;
+        }
+      })
+    );
+  };
+
+  const createCard = async (body: object) => {
+    const response = await axios.post("/api/card", body);
+    console.log(response.status);
+    setCards([...cards, response.data]);
+
+    if (response.status === 200) {
+      const updatedCards = {
+        Card: [...myCards.Card, response.data._id],
+      };
+      setMyCards(updatedCards);
+      await updateCollection(updatedCards);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -39,9 +71,9 @@ export default function AddCard() {
       wordTwo: "",
     },
     onSubmit: async (values, { resetForm }) => {
-      // createCard(values);
-      // console.log(values);
+      createCard(values);
       resetForm();
+      // console.log(values);
       // setShowCardForm("");
     },
   });

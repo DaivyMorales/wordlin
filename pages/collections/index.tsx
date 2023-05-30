@@ -15,23 +15,6 @@ export default function Collections() {
     getCards();
   }, []);
 
-  
-  const updateCollection = async (cards: object) => {
-    const response = await axios.put(
-      `/api/collection/${collectionChoose}`,
-      cards
-    );
-    setCollections(
-      collections.map((collection) => {
-        if (collection._id === collectionChoose) {
-          return response.data;
-        } else {
-          return collection;
-        }
-      })
-    );
-  };
-
   return (
     <div className="relative z-10 w-screen h-screen flex gap-4 justify-center items-center flex-col">
       <div className="rounded-full flex justify-center items-center gap-x-2 border-1 px-5 bg-emerald-100 border-emerald-500">

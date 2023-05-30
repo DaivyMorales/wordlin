@@ -19,6 +19,8 @@ interface IContext {
   showCardForm: string;
   setShowCardForm: React.Dispatch<React.SetStateAction<string>>;
   createCard: (body: object) => Promise<void>;
+  cards: ICard[];
+  setCards: React.Dispatch<React.SetStateAction<ICard[]>>;
 }
 
 export const cardContext = createContext<IContext>({
@@ -26,6 +28,8 @@ export const cardContext = createContext<IContext>({
   showCardForm: "",
   setShowCardForm: () => {},
   createCard: async (body) => {},
+  cards: [],
+  setCards: () => [],
 });
 
 export const CardContextProvider = ({ children }: MyProps) => {
@@ -55,7 +59,14 @@ export const CardContextProvider = ({ children }: MyProps) => {
 
   return (
     <cardContext.Provider
-      value={{ getCards, showCardForm, setShowCardForm, createCard }}
+      value={{
+        getCards,
+        showCardForm,
+        setShowCardForm,
+        createCard,
+        cards,
+        setCards,
+      }}
     >
       {children}
     </cardContext.Provider>
