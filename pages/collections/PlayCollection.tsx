@@ -1,6 +1,7 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 
 export default function PlayCollection() {
   const { myCards, cards } = useContext(cardContext);
@@ -15,6 +16,7 @@ export default function PlayCollection() {
 
   const [showWord, setShowWord] = useState(0);
   const [answerText, setAnswerText] = useState("");
+  const [bad, setBad] = useState<boolean>(false);
 
   const currentCard = cards.find((card) => card._id === myCards.Card[showWord]);
 
@@ -28,12 +30,15 @@ export default function PlayCollection() {
       setAnswerText("");
       console.log("They're seem");
     } else {
-      console.log("Bad");
+      setBad(true);
+      console.log(bad);
+      console.log("bad");
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnswerText(e.target.value);
+    setBad(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -48,27 +53,59 @@ export default function PlayCollection() {
         {showWord}/{myCards.Card.length}
       </p>
       <h1 className="font-black text-8xl">{currentCard?.wordOne}</h1>
-      <div className=" inputWithEmoji " tabIndex={1}>
-        <input
-          name="wordTwo"
-          type="text"
-          className="noInput"
-          placeholder="What is it?"
-          onChange={handleChange}
-          value={answerText}
-          onKeyDown={handleKeyDown}
-          autoComplete="off"
-        />
+      <div className="flex flex-col justify-center items-center">
+        <p
+          className={` ${
+            !bad ? "hidden" : ""
+          } text-xs font-semibold text-red-500`}
+        >
+          ¡Ups! <span className="errorMsg">You should review it</span>.
+        </p>
+
+        <div
+          className={` inputWithEmoji shadow-lg w-44 ${
+            bad
+              ? "focus-within:shadow-red-200 border-red-400"
+              : "focus-within:shadow-emerald-200 border-emerald-400"
+          }`}
+          tabIndex={1}
+        >
+          <input
+            name="wordTwo"
+            type="text"
+            className={`noInput ${bad ? "text-red-600" : ""}`}
+            placeholder="What is it?"
+            onChange={handleChange}
+            value={answerText}
+            onKeyDown={handleKeyDown}
+            autoComplete="off"
+          />
+        </div>
       </div>
-      <button
-        onClick={() => {
-          changeWord();
-        }}
-        type="submit"
-        className="px-4 py-1"
-      >
-        I'm sure!
-      </button>
+      {answerText.length >= 1 && !bad ? (
+        <motion.button
+          whileHover={{
+            scale: 1.2,
+          }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => {
+            changeWord();
+          }}
+          type="submit"
+          className="px-4 py-1"
+        >
+          I'm sure!
+        </motion.button>
+      ) : (
+        <button
+          onClick={() => {
+            changeWord();
+          }}
+          className=" buttonDisabled px-4 py-1 "
+        >
+          I'm sure!
+        </button>
+      )}
     </div>
   );
 }

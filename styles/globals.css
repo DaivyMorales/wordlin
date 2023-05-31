@@ -76,6 +76,15 @@ button[type="submit"] {
   border-radius: 6px;
 }
 
+button[type="submit"]:hover {
+  @apply bg-emerald-400;
+}
+
+.buttonDisabled {
+  @apply bg-gray-100 cursor-not-allowed text-gray-500 text-sm py-2 shadow-md drop-shadow-md border-1 border-gray-300;
+  border-radius: 6px;
+}
+
 .border-1 {
   border-width: 1px;
 }
@@ -108,7 +117,6 @@ hr {
 }
 
 .inputWithEmoji:focus-within {
-  @apply shadow-lg shadow-emerald-100 border-emerald-400;
   color: black;
   outline: none;
 }
@@ -116,4 +124,8 @@ hr {
 .scroll-div {
   max-height: 102px;
   overflow: auto;
+}
+
+.errorMsg{
+  @apply text-xs text-red-400;
 }
