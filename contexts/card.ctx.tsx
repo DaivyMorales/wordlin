@@ -6,7 +6,7 @@ interface MyProps {
   children: ReactNode;
 }
 
-interface ICard {
+export interface ICard {
   _id: string;
   wordOne: string;
   wordTwo: string;

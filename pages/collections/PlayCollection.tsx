@@ -1,9 +1,15 @@
 import { cardContext } from "@/contexts/card.ctx";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function PlayCollection() {
   const { myCards, cards } = useContext(cardContext);
+
+  useEffect(() => {
+    if (myCards.Card.length === 0) {
+      router.push("/collections");
+    }
+  }, []);
 
   const router = useRouter();
 
@@ -38,7 +44,9 @@ export default function PlayCollection() {
 
   return (
     <div className="w-screen h-screen flex flex-col gap-y-5 justify-center items-center">
-      <p className="font-bold">1/10</p>
+      <p className="font-bold">
+        {showWord}/{myCards.Card.length}
+      </p>
       <h1 className="font-black text-8xl">{currentCard?.wordOne}</h1>
       <div className=" inputWithEmoji " tabIndex={1}>
         <input

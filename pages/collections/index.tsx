@@ -1,18 +1,23 @@
-import { useContext, useEffect } from 'react';
-import { cardContext } from "@/contexts/card.ctx";
+import { useContext, useEffect } from "react";
+import { ICard, cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
 import BoxCollection from "../../components/collection/BoxCollection";
 import { BiPlusCircle, BiHdd } from "react-icons/bi";
 import AddCard from "@/components/card/AddCard";
 import axios from "axios";
+import { GetServerSidePropsContext } from "next";
 
-export default function Collections() {
-  const { getCards, showCardForm, setShowCardForm } = useContext(cardContext);
+interface MyProps {
+  data: ICard[];
+}
+
+export default function Collections({ data }: MyProps) {
+  const { getCards, showCardForm, setCards } = useContext(cardContext);
   const { collections, collectionChoose, setCollections } =
     useContext(collectionContext);
 
   useEffect(() => {
-    getCards();
+    setCards(data);
   }, []);
 
   return (
@@ -34,4 +39,13 @@ export default function Collections() {
       {showCardForm ? <AddCard /> : ""}
     </div>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const response = await fetch("http://localhost:3000/api/card");
+  const data = await response.json();
+
+  return {
+    props: { data },
+  };
 }
