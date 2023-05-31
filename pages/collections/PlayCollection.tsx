@@ -1,9 +1,11 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { useContext, useState } from "react";
-import { BiFont, BiQuestionMark, BiShow, BiX } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 export default function PlayCollection() {
   const { myCards, cards } = useContext(cardContext);
+
+  const router = useRouter();
 
   const [showWord, setShowWord] = useState(0);
   const [answerText, setAnswerText] = useState("");
@@ -12,6 +14,10 @@ export default function PlayCollection() {
 
   const changeWord = () => {
     if (answerText === currentCard?.wordTwo) {
+      if (showWord === myCards.Card.length - 1) {
+        console.log("Acabado");
+        router.push("/collections");
+      }
       setShowWord((prevIndex) => (prevIndex + 1) % myCards.Card.length);
       setAnswerText("");
       console.log("They're seem");
@@ -22,6 +28,12 @@ export default function PlayCollection() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnswerText(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      changeWord();
+    }
   };
 
   return (
@@ -36,6 +48,8 @@ export default function PlayCollection() {
           placeholder="What is it?"
           onChange={handleChange}
           value={answerText}
+          onKeyDown={handleKeyDown}
+          autoComplete="off"
         />
       </div>
       <button
