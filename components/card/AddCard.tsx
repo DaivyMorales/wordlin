@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
 import BoxCard from "./BoxCard";
 import { motion } from "framer-motion";
-import axios from "axios";
+import Link from "next/link";
 
 export interface ICardState {
   Card: string[];
@@ -145,6 +145,9 @@ export default function AddCard() {
               </button>
             </div>
           </form>
+          <button>
+            <Link href="/collections/PlayCollection">Play</Link>
+          </button>
         </div>
       </motion.div>
     </div>

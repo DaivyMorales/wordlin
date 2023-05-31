@@ -29,7 +29,6 @@ export default function BoxCollection({ collection }: MyProps) {
               {collection.name}
             </p>
           </div>
-          <button><Link href="/collections/PlayCollection">Play</Link></button>
           <div className="flex gap-x-1">
             <div
               className="cursor-pointer"
