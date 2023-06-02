@@ -1,7 +1,14 @@
 import { cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
-import { useContext, useEffect, useState } from "react";
-import { BiCollection, BiLowVision, BiShow, BiX } from "react-icons/bi";
+import { useContext, useEffect } from "react";
+import {
+  BiCollection,
+  BiLowVision,
+  BiShow,
+  BiX,
+  BiChevronRight,
+  BiPlusCircle,
+} from "react-icons/bi";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
 import BoxCard from "./BoxCard";
@@ -108,7 +115,6 @@ export default function AddCard() {
               ))}
             </div>
           </div>
-          <hr className="" />
           <form
             onSubmit={formik.handleSubmit}
             className=" w-full px-4 flex-col flex gap-y-3 justify-center items-center"
@@ -141,13 +147,37 @@ export default function AddCard() {
                 </div>
               </div>
               <button type="submit" className="px-4 py-1">
-                Add
+                <BiPlusCircle />
               </button>
             </div>
           </form>
-          <button>
-            <Link href="/collections/PlayCollection">Play</Link>
-          </button>
+          <hr className="" />
+          <div className="flex w-full gap-x-3 px-3 justify-end items-center">
+            <button
+              className="px-6 buttonCancel py-1"
+              onClick={() => {
+                setShowCardForm("");
+                setCollectionInfo({
+                  _id: "",
+                  name: "",
+                  Card: [],
+                  User: "",
+                  updatedAt: "",
+                  createdAt: "",
+                });
+              }}
+            >
+              Cancel
+            </button>
+
+            <Link
+              className="buttonLink px-6 py-1 flex justify-between items-center"
+              href="/collections/PlayCollection"
+            >
+              Play
+              <BiChevronRight size={20} />
+            </Link>
+          </div>
         </div>
       </motion.div>
     </div>

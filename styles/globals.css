@@ -4,11 +4,14 @@
 
 :root {
   font-family: "Inter", sans-serif;
+  background: radial-gradient(circle at center, #dbfadb, #ffffff);
+  color: black;
 }
 
 h1 {
-  @apply font-bold;
+  @apply font-black;
   font-size: 43px;
+  font-family: "Poppins", sans-serif;
 }
 
 h3 {
@@ -72,7 +75,7 @@ input[type="password"]:focus {
 }
 
 button[type="submit"] {
-  @apply bg-emerald-500 text-white text-sm py-2 shadow-md drop-shadow-md border-1 border-emerald-600;
+  @apply bg-emerald-500 text-white text-sm shadow-md shadow-emerald-100 drop-shadow-md border-1 border-emerald-600;
   border-radius: 6px;
 }
 
@@ -80,8 +83,22 @@ button[type="submit"]:hover {
   @apply bg-emerald-400;
 }
 
+.buttonLink {
+  @apply bg-emerald-500 text-white text-sm shadow-md shadow-emerald-100 drop-shadow-md border-1 border-emerald-600;
+  border-radius: 6px;
+}
+
+.buttonLink:hover {
+  @apply bg-emerald-400;
+}
+
 .buttonDisabled {
   @apply bg-gray-100 cursor-not-allowed text-gray-500 text-sm py-2 shadow-md drop-shadow-md border-1 border-gray-300;
+  border-radius: 6px;
+}
+
+.buttonCancel {
+  @apply bg-gray-100 text-gray-500 text-sm  shadow-md drop-shadow-md border-1 border-gray-300;
   border-radius: 6px;
 }
 
@@ -126,6 +143,6 @@ hr {
   overflow: auto;
 }
 
-.errorMsg{
+.errorMsg {
   @apply text-xs text-red-400;
 }

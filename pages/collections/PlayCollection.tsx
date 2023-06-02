@@ -92,7 +92,7 @@ export default function PlayCollection() {
             changeWord();
           }}
           type="submit"
-          className="px-4 py-1"
+          className="px-4 py-2"
         >
           I'm sure!
         </motion.button>
