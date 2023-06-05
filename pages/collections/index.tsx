@@ -1,8 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ICard, cardContext } from "@/contexts/card.ctx";
 import { collectionContext } from "@/contexts/collection.ctx";
 import BoxCollection from "../../components/collection/BoxCollection";
-import { BiPlusCircle, BiHdd } from "react-icons/bi";
 import AddCard from "@/components/card/AddCard";
 import { GetServerSidePropsContext } from "next";
 
@@ -12,31 +11,38 @@ interface MyProps {
 
 export default function Collections({ data }: MyProps) {
   const { showCardForm, setCards } = useContext(cardContext);
-  const { collections } = useContext(collectionContext);
+  const { collections, setDropDownSelected } = useContext(collectionContext);
 
   useEffect(() => {
     setCards(data);
   }, []);
 
+  useEffect(() => {
+    const handleClick = () => {
+      setDropDownSelected("");
+    };
+
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+
   return (
     <div className="relative z-10 w-screen h-screen flex gap-4 justify-center items-center flex-col">
       <div className="flex justify-center items-start flex-col">
-        <div className="rounded-full flex justify-start  items-center gap-x-2  px-5  border-emerald-500">
-          {/* <BiHdd className="text-emerald-500 " size={30} /> */}
+        <div className="rounded-full flex justify-start  items-center gap-x-2 px-5 border-emerald-500">
           <h1 className="font-semibold text-emerald-700 ">My Collections</h1>
         </div>
-        <div className="grid p-3  grid-cols-2 gap-3">
-          {/* <div className="flex  justify-center items-center">
-          <button className="bg-white p-2 rounded-lg border-1 border-gray-200">
-            <BiPlusCircle size={22} color="#71717a" />
-          </button>
-        </div> */}
+
+        <div className="grid p-3 grid-cols-2 gap-1">
           {collections.map((collection) => (
             <BoxCollection collection={collection} key={collection._id} />
           ))}
         </div>
       </div>
-        {showCardForm ? <AddCard /> : ""}
+      {showCardForm ? <AddCard /> : ""}
     </div>
   );
 }

@@ -4,7 +4,7 @@
 
 :root {
   font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at center, #dbfadb, #ffffff);
+  background: radial-gradient(circle at center, #b6ffce, #ffffff);
   color: black;
 }
 
@@ -145,4 +145,14 @@ hr {
 
 .errorMsg {
   @apply text-xs text-red-400;
+}
+
+.dropdown-content {
+  @apply rounded-lg ;
+  position: absolute;
+  top: 23px;
+  right: -30px;
+  background-color: white;
+  padding: 8px;
+  border-width: 1px;
 }

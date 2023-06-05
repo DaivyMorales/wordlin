@@ -34,7 +34,10 @@ interface IContext {
   };
   setCardsArray: React.Dispatch<React.SetStateAction<string[]>>;
   updateCollection: (cards: object) => Promise<void>;
+  dropDownSelected: string;
+  setDropDownSelected: React.Dispatch<React.SetStateAction<string>>;
 }
+
 export const collectionContext = createContext<IContext>({
   collections: [],
   setCollections: () => [],
@@ -54,6 +57,8 @@ export const collectionContext = createContext<IContext>({
   },
   setCardsArray: () => [],
   updateCollection: async () => {},
+  dropDownSelected: "",
+  setDropDownSelected: () => {},
 });
 
 export const CollectionContextProvider = ({ children }: MyProps) => {
@@ -71,6 +76,8 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
   const [cardsArray, setCardsArray] = useState<any>({
     Card: [],
   });
+  const [dropDownSelected, setDropDownSelected] = useState<string>("");
+  console.log(dropDownSelected);
 
   const { data: session, status } = useSession();
 
@@ -122,6 +129,8 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
         cardsArray,
         setCardsArray,
         updateCollection,
+        dropDownSelected,
+        setDropDownSelected,
       }}
     >
       {children}
