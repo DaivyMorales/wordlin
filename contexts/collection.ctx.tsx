@@ -77,7 +77,6 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
     Card: [],
   });
   const [dropDownSelected, setDropDownSelected] = useState<string>("");
-  console.log(dropDownSelected);
 
   const { data: session, status } = useSession();
 

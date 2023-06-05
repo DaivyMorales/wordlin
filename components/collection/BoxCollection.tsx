@@ -1,6 +1,7 @@
 import { ICollection, collectionContext } from "@/contexts/collection.ctx";
 import { useContext } from "react";
-import { BiDotsVerticalRounded, BiPlay } from "react-icons/bi";
+import { BiDotsVerticalRounded, BiPlay, BiBookOpen } from "react-icons/bi";
+import { BsFillPlayFill } from "react-icons/bs";
 
 interface MyProps {
   collection: ICollection;
@@ -55,7 +56,18 @@ export default function BoxCollection({ collection }: MyProps) {
 
             {dropDownSelected === collection._id && (
               <div className="dropdown-content">
-                <p className="text-xs">hola</p>
+                <div className="flex cursor-pointer gap-x-1 w-full p-1 hover:bg-gray-200">
+                  <BsFillPlayFill className="text-emerald-800" />
+                  <p className="text-xs font-semibold text-emerald-800">Play</p>
+                </div>
+                <div className="flex cursor-pointer gap-x-1 w-full p-1 hover:bg-gray-200">
+                  <BiBookOpen />
+                  <p className="text-xs font-semibold text-black">Words</p>
+                </div>
+                <hr className="w-full" />
+                <p className="text-red-600 cursor-pointer  p-1 w-full text-xs hover:bg-red-200 hover:text-red-700 rounded-b-lg">
+                  Delete Collection
+                </p>
               </div>
             )}
           </div>

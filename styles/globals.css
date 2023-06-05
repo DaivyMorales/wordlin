@@ -148,11 +148,10 @@ hr {
 }
 
 .dropdown-content {
-  @apply rounded-lg ;
+  @apply rounded-lg flex flex-col items-start justify-center  w-32;
   position: absolute;
   top: 23px;
-  right: -30px;
+  right: -110px;
   background-color: white;
-  padding: 8px;
   border-width: 1px;
 }

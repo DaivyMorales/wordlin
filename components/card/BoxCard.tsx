@@ -24,7 +24,6 @@ export default function BoxCard({ cardId }: MyProps) {
       whileHover={{
         scale: 1.1,
       }}
-      // initial={{ scale: 1 }}
       whileTap={{ scale: 0.9 }}
       className={`text-sm shadow-sm font-medium flex cursor-pointer px-3 justify-center items-center rounded-md border-1 ${
         hover ? "text-red-500 border-red-600" : ""

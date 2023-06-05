@@ -36,7 +36,11 @@ export default function Collections({ data }: MyProps) {
           <h1 className="font-semibold text-emerald-700 ">My Collections</h1>
         </div>
 
-        <div className="grid p-3 grid-cols-2 gap-1">
+        <div
+          className={`grid p-3 ${
+            collections.length <= 1 ? "grid-cols-1" : "grid-cols-2"
+          }  gap-1`}
+        >
           {collections.map((collection) => (
             <BoxCollection collection={collection} key={collection._id} />
           ))}
