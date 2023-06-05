@@ -17,17 +17,17 @@ export default function Collections({ data }: MyProps) {
     setCards(data);
   }, []);
 
-  useEffect(() => {
-    const handleClick = () => {
-      setDropDownSelected("");
-    };
+  // useEffect(() => {
+  //   const handleClick = () => {
+  //     setDropDownSelected("");
+  //   };
 
-    document.addEventListener("mousedown", handleClick);
+  //   document.addEventListener("mousedown", handleClick);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClick);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClick);
+  //   };
+  // }, []);
 
   return (
     <div className="relative z-10 w-screen h-screen flex gap-4 justify-center items-center flex-col">

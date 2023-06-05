@@ -39,12 +39,6 @@ export default function AddCard() {
 
   const { data: session } = useSession();
 
-  useEffect(() => {
-    setMyCards({
-      Card: collectionInfo.Card.map((card) => card),
-    });
-  }, []);
-
   const formik = useFormik({
     initialValues: {
       wordOne: "",

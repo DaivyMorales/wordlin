@@ -36,6 +36,7 @@ interface IContext {
   updateCollection: (cards: object) => Promise<void>;
   dropDownSelected: string;
   setDropDownSelected: React.Dispatch<React.SetStateAction<string>>;
+  deleteCollection: (id: string) => Promise<void>;
 }
 
 export const collectionContext = createContext<IContext>({
@@ -59,6 +60,7 @@ export const collectionContext = createContext<IContext>({
   updateCollection: async () => {},
   dropDownSelected: "",
   setDropDownSelected: () => {},
+  deleteCollection: async () => {},
 });
 
 export const CollectionContextProvider = ({ children }: MyProps) => {
@@ -116,6 +118,15 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
     );
   };
 
+  const deleteCollection = async (id: string) => {
+    try {
+      await axios.delete(`/api/collection/${id}`);
+      setCollections(collections.filter((collection) => collection._id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <collectionContext.Provider
       value={{
@@ -130,6 +141,7 @@ export const CollectionContextProvider = ({ children }: MyProps) => {
         updateCollection,
         dropDownSelected,
         setDropDownSelected,
+        deleteCollection,
       }}
     >
       {children}
